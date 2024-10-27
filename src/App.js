@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-
+import { Oval } from "react-loader-spinner";
 import { TiPencil } from "react-icons/ti";
 import "./App.css";
 //import { response } from "../../../backend/server";
@@ -12,27 +12,34 @@ function App() {
   const [isModalOpen, setIsModelOpen] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [id, setId] = useState("");
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchDate();
   });
 
   const fetchDate = async () => {
-    const response = await fetch("https://culturelinkr-assignment-todo-backend.onrender.com/task/todos");
+    const response = await fetch(
+      "https://culturelinkr-assignment-todo-backend.onrender.com/task/todos"
+    );
     const data = await response.json();
     console.log(data);
     setTodos(data);
+    setLoading(false);
   };
 
   const onClickAdd = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("https://culturelinkr-assignment-todo-backend.onrender.com/task/todos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: name }),
-      });
+      const response = await fetch(
+        "https://culturelinkr-assignment-todo-backend.onrender.com/task/todos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: name }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -52,9 +59,12 @@ function App() {
 
   const onClickRemove = async (id) => {
     try {
-      await fetch(`https://culturelinkr-assignment-todo-backend.onrender.com/task/todos/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://culturelinkr-assignment-todo-backend.onrender.com/task/todos/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       setTodos(todos.filter((eachTodo) => eachTodo._id !== id));
     } catch (error) {
       console.log(`Error ${error.message}`);
@@ -63,9 +73,12 @@ function App() {
 
   const onClickComplete = async (id) => {
     try {
-      await fetch(`https://culturelinkr-assignment-todo-backend.onrender.com/task/todos/${id}`, {
-        method: "PATCH",
-      });
+      await fetch(
+        `https://culturelinkr-assignment-todo-backend.onrender.com/task/todos/${id}`,
+        {
+          method: "PATCH",
+        }
+      );
     } catch (error) {
       console.log(`Error ${error.message}`);
     }
@@ -79,13 +92,16 @@ function App() {
   };
 
   const saveName = async (id) => {
-    await fetch(`https://culturelinkr-assignment-todo-backend.onrender.com/task/todos/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: editedName }),
-    });
+    await fetch(
+      `https://culturelinkr-assignment-todo-backend.onrender.com/task/todos/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: editedName }),
+      }
+    );
     setIsModelOpen(false);
   };
   const closeModal = () => {
@@ -106,7 +122,23 @@ function App() {
           ADD
         </button>
       </div>
-      <h1>My Tasks</h1>
+      {loading && (
+        <div className="loader-container">
+          <Oval
+            height={80}
+            width={80}
+            color="#4fa94d"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#4fa94d"
+            strokeWidth={2}
+            strokeWidthSecondary={2}
+          />
+        </div>
+      )}{!loading && 
+      <h1>My Tasks</h1>}
       {todos.length > 0 && (
         <table className="todos-container">
           <tr>
@@ -119,11 +151,11 @@ function App() {
               key={eachTodo._id}
               className={index % 2 === 0 ? "black" : "white"}
             >
-              <td
-                className="todo-name"
-                
-              >
-                <h4 className="todo-name" onClick={() => onClickTodo(eachTodo._id, eachTodo.name)}>
+              <td className="todo-name">
+                <h4
+                  className="todo-name"
+                  onClick={() => onClickTodo(eachTodo._id, eachTodo.name)}
+                >
                   {eachTodo.name}
                   <TiPencil />
                 </h4>
