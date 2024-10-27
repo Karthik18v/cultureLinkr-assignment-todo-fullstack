@@ -1,0 +1,135 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  
+  height: 100vh;
+  background-size: cover;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.search {
+  height: 30px;
+  width: 80vw;
+}
+
+.search-container {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+add-button {
+  background-color: blue;
+  border: 0px;
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+table{
+  border: 1px solid black;
+  text-align: left;
+  background-color: aliceblue;
+  overflow-y: scroll;
+}
+
+.pending{
+  background-color: red;
+}
+.done{
+ background-color: green;
+}
+
+.table-data{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  height: 110px;
+}
+
+h6{
+  height: 10px;
+}
+
+
+tr{
+  background-color: rgb(76, 137, 85);
+  height: 50px;
+}
+
+
+td{
+  padding: 10px;
+}
+.black{
+  background-color:#F2F2F2;
+}
+.white{
+  background-color:#F9F9F9;
+  height: 80px;
+
+}
+.todo-button{
+  background-color: transparent;
+  border: 0px;
+}
+h5{
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 400px;
+}
+
+.modal input {
+  width: 95%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-actions button {
+  flex: 1;
+  margin: 0 5px;
+}
+.search-container input {
+  outline: none ;
+}
+.todo-name{
+  cursor: pointer;
+}
